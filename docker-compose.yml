@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nodejs-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI="mongodb+srv://admin:iPRT234oZ6XqEbuI@cluster0.5ujb29s.mongodb.net"
+    networks:
+      - app-net
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - app-net
+
+networks:
+  app-net:
+
+
+volumes:
+  mongodb-data:
